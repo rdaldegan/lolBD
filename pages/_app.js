@@ -1,4 +1,6 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from '../src/components/Header'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -19,6 +21,7 @@ export default function App({ Component, pageProps }) {
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
+        <Header />
         <Component {...pageProps} />
       </ThemeProvider>
     </>
