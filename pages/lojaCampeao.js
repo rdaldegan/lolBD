@@ -21,6 +21,14 @@ const Container = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 20px;
   }
+
+  img{
+    transition: 0.3s;
+    :hover{
+      z-index: 500;
+      transform: scale(2.5);
+    }
+  }
 `;
 
 export default function lojaCampeao() {
@@ -64,7 +72,7 @@ export default function lojaCampeao() {
             bg={'primary'}
             text={'dark'}
           >
-            <Card.Img variant="top" src="holder.js/100px180" />
+            <Card.Img variant="top" src={`data:image/png;base64, ${campeao.imagemCampeao}`} />
             <Card.Body>
               <Card.Title>{campeao.nomeCampeao}</Card.Title>
               <Card.Text>{campeao.textoCampeao}</Card.Text>

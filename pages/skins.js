@@ -25,6 +25,14 @@ const Container = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 20px;
   }
+
+  img{
+    transition: 0.3s;
+    :hover{
+      z-index: 500;
+      transform: scale(2.5);
+    }
+  }
 `;
 
 export default function Skins() {
@@ -67,7 +75,7 @@ export default function Skins() {
                   bg={'primary'}
                   text={'dark'}
                 >
-                  <Card.Img variant="top" src="holder.js/100px180" />
+                  <Card.Img variant="top" src={`data:image/png;base64, ${skin.imagemSkin}`} />
                   <Card.Body>
                     <Card.Title>{skin.nomeSkin}</Card.Title>
                   </Card.Body>

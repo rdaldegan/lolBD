@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 
 import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-import ListGroupItem  from 'react-bootstrap/ListGroupItem';
 
 const Container = styled.div`
   display: flex;
@@ -17,8 +15,16 @@ const Container = styled.div`
 
   ul{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 20px;
+  }
+
+  img{
+    transition: 0.3s;
+    :hover{
+      z-index: 500;
+      transform: scale(1.1);
+    }
   }
 `;
 
@@ -43,7 +49,7 @@ export default function Feiticos() {
 
   return (
     <Container>
-      <h2>Campeões Habilitados</h2>
+      <h2>Feitiços de Invocador</h2>
       <ul>
         {feiticos.map((feitico) => (
           <Card className='card'
@@ -52,7 +58,7 @@ export default function Feiticos() {
             bg={'primary'}
             text={'dark'}
           >
-            <Card.Img variant="top" src="holder.js/100px180" />
+            <Card.Img variant="top" src={`data:image/png;base64, ${feitico.imagemFeitico}`} />
             <Card.Body>
               <Card.Title>{feitico.nome}</Card.Title>
               <Card.Text>{feitico.texto}</Card.Text>

@@ -17,8 +17,16 @@ const Container = styled.div`
 
   ul{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 20px;
+  }
+
+  img{
+    transition: 0.3s;
+    :hover{
+      z-index: 500;
+      transform: scale(1.1);
+    }
   }
 `;
 
@@ -52,7 +60,7 @@ export default function Itens() {
             bg={'primary'}
             text={'dark'}
           >
-            <Card.Img variant="top" src="holder.js/100px180" />
+            <Card.Img variant="top" src={`data:image/png;base64, ${item.imagemItem}`} />
             <Card.Body>
               <Card.Title>{item.nomeItem}</Card.Title>
               <Card.Text>{item.textoItem}</Card.Text>

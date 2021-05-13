@@ -1,10 +1,10 @@
 export async function getData(sql) {
   var mysql = require('mysql');
   var connection = mysql.createConnection({
-    host: 'remotemysql.com', //"sql10.freemysqlhosting.net",
-    user: 'OvUoifjKLK', //"sql10411360",
-    password: '1lWO9PC88S', //"YxsdIpQZNS",
-    database: 'OvUoifjKLK', //"sql10411360"
+    host: 'localhost', //"sql10.freemysqlhosting.net",
+    user: 'root', //"sql10411360",
+    password: '', //"YxsdIpQZNS",
+    database: 'bdlol', //"sql10411360"
   });
   return new Promise(function(resolve, reject){
     connection.query(sql, 
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 
   const { query } = req;
 
-  var sql = `SELECT idSkin, nomeSkin, nomeCampeao
+  var sql = `SELECT idSkin, nomeSkin, imagemSkin, nomeCampeao
             FROM skins, skins_jogador, jogador, campeao, maestria 
             WHERE nickname='${query.user}' 
             AND idSkin=skins_idSkin 
@@ -57,6 +57,9 @@ export default async function handler(req, res) {
     }
   }
   else{
+    data.map((current, index) => {
+      data[index].imagemSkin = current.imagemSkin.toString('base64')
+    });
     try {
       res.status(200).json([
         {
