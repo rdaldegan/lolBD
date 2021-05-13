@@ -4,5 +4,4 @@ Dupla:
   Lucas de Souza
   Rafael Barreto
   
- 
-<img src=“https://github.com/rdaldegan/lolBD/blob/main/public/Diagrama.png”>
+ ![Image of Yaktocat](https://github.com/rdaldegan/lolBD/blob/main/public/Diagrama.png)
