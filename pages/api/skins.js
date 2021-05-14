@@ -23,20 +23,13 @@ export default async function handler(req, res) {
 
   const { query } = req;
 
-  var sql = `SELECT idSkin, nomeSkin, imagemSkin, nomeCampeao
-            FROM skins, skins_jogador, jogador, campeao, maestria 
-            WHERE nickname='${query.user}' 
-            AND idSkin=skins_idSkin 
-            AND idJogador=skins_jogador.jogador_id 
-            AND idJogador=maestria.jogador_id 
-            AND idCampeao=maestria.campeao_id
-            AND idCampeao=skins.campeao_id;`;
+  var sql = `call pr_mostra_skins('${query.user}');`;
 
   var data = [];
 
   await getData(sql)
   .then(function(results){
-    data = results;
+    data = results[0];
   })
   .catch(function(err){
     console.log("Promise rejection error: "+err);
