@@ -23,21 +23,8 @@ export default async function handler(req, res) {
 
   const { query } = req;
 
-  var sql = `SELECT idPartida, duracao, ouro, danoCampeoes, danoRecebido, tropasAbatidas, placarVisao, lado, resultado, nickname, nomeCampeao, nomeSkin
-  FROM jogador_partida
-  LEFT JOIN skins
-  ON idSkin=skins_idSkin
-  INNER JOIN jogador
-  ON jogador.idJogador=jogador_partida.jogador_id
-  INNER JOIN campeao
-  ON idCampeao=jogador_partida.campeao_idCampeao
-  INNER JOIN partida
-  ON idPartida=partida_idPartida AND idPartida IN (SELECT idPartida 
-                                                  FROM partida, jogador, jogador_partida 
-                                                  WHERE nickname='${query.user}'
-                                                  AND idJogador=jogador_partida.jogador_id
-                                                  AND idPartida=partida_idPartida
-                                                  );`;
+  var sql = `SELECT * FROM vw_partida_completa where idPartida 
+  IN (select idPartida FROM partida JOIN jogador_partida on idPartida=partida_idPartida JOIN jogador on idJogador=jogador_id where nickname='${query.user}');`;
 
   var data = [];
 

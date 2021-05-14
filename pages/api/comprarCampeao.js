@@ -1,10 +1,10 @@
 export async function getData(sql) {
   var mysql = require('mysql');
   var connection = mysql.createConnection({
-    host: 'localhost', //"sql10.freemysqlhosting.net",
-    user: 'root', //"sql10411360",
-    password: '', //"YxsdIpQZNS",
-    database: 'bdlol', //"sql10411360"
+    host: 'localhost', 
+    user: 'root',
+    password: '',
+    database: 'bdlol',
   });
   return new Promise(function(resolve, reject){
     connection.query(sql, 

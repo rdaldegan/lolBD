@@ -95,7 +95,7 @@ export default function Historico() {
           const player = partida[1].find(element => element.nickname === sessionStorage.user);
           const ladoA = partida[1].filter((lado) => lado.lado === 'A' ? true : false)
           const ladoV = partida[1].filter((lado) => lado.lado === 'V' ? true : false)
-          
+
           return (
             <Partida
               key={partida[0]}
