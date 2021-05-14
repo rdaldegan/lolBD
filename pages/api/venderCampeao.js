@@ -23,8 +23,6 @@ export default async function handler(req, res) {
 
   const { query } = req;
 
-  console.log(query)
-
   var sql = `DELETE FROM maestria WHERE campeao_id='${query.campeao}' AND jogador_id IN (SELECT idJogador from jogador WHERE nickname='${query.user}');`;
 
   var data = [];
@@ -32,7 +30,6 @@ export default async function handler(req, res) {
   await getData(sql)
   .then(function(results){
     data = results;
-    console.log(data)
   })
   .catch(function(err){
     console.log("Promise rejection error: "+err);

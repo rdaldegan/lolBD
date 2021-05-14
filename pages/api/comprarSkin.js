@@ -30,7 +30,6 @@ export default async function handler(req, res) {
   await getData(sql)
   .then(function(results){
     data = results;
-    console.log('res1', data)
   })
   .catch(function(err){
     console.log("Promise rejection error: "+err);
@@ -76,7 +75,6 @@ export default async function handler(req, res) {
       await getData(sql)
       .then(function(results){
         data = results;
-        console.log('res2', data)
       })
       .catch(function(err){
         console.log("Promise rejection error: "+err);
@@ -101,7 +99,6 @@ export default async function handler(req, res) {
         await getData(sql)
         .then(function(results){
           data = results;
-          console.log('res3', data)
         })
         .catch(function(err){
           console.log("Promise rejection error: "+err);

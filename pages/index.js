@@ -62,7 +62,6 @@ export default function Home() {
       fetch(url)
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         if(response[0].sucess === true){
           sessionStorage.setItem('user', response[0].user);
           router.push('/home');
