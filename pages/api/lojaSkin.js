@@ -24,12 +24,11 @@ export default async function handler(req, res) {
   const { query } = req;
 
   var sql = `SELECT idSkin, nomeSkin, precoSkin, imagemSkin 
-            FROM skins
-            WHERE idSkin NOT IN (SELECT idSkin 
-                                  FROM skins, jogador, skins_jogador 
-                                  WHERE nickname='${query.user}' 
-                                  AND idJogador=jogador_id 
-                                  AND idSkin=skins_idSkin);`;
+            FROM skins WHERE idSkin NOT IN (SELECT idSkin 
+                                            FROM jogador 
+                                            JOINTskins_jogador ON idJogador = jogador_id 
+                                            JOIN skins on idSkin = skins_idSkin 
+                                            WHERE nickname='${query.user}');`;
 
   var data = [];
 

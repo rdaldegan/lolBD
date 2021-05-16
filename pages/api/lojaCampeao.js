@@ -23,13 +23,13 @@ export default async function handler(req, res) {
 
   const { query } = req;
 
-  var sql = `SELECT idCampeao, nomeCampeao, textoCampeao, regiao, precoCampeao, imagemCampeao
-            FROM campeao 
-            WHERE idCampeao NOT IN (SELECT idCampeao 
-                                  FROM campeao, jogador, maestria 
-                                  WHERE nickname='${query.user}' 
-                                  AND idJogador=jogador_id 
-                                  AND idCampeao=campeao_id);`;
+  var sql = `SELECT idCampeao, nomeCampeao, textoCampeao, regiao, precoCampeao, imagemCampeao 
+          FROM campeao 
+          WHERE idCampeao NOT IN (SELECT idCampeao 
+                                  FROM jogador 
+                                  JOIN maestria ON idJogador = jogador_id 
+                                  JOIN campeao ON idCampeao = campeao_id 
+                                  WHERE nickname = '${query.user}');`;
 
   var data = [];
 
