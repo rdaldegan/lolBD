@@ -50,24 +50,6 @@ CREATE TABLE IF NOT EXISTS `BDlol`.`campeao` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `BDlol`.`habilidades`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `BDlol`.`habilidades` (
-  `idHabilidade` INT NOT NULL AUTO_INCREMENT,
-  `letra` CHAR(1) NOT NULL,
-  `textoHabilidade` TEXT(65) NULL,
-  `nomeHabilidade` VARCHAR(45) NULL,
-  `campeao_id` INT NOT NULL,
-  PRIMARY KEY (`idHabilidade`),
-  INDEX `fk_habilidades_campeao_idx` (`campeao_id` ASC),
-  CONSTRAINT `fk_habilidades_campeao`
-    FOREIGN KEY (`campeao_id`)
-    REFERENCES `BDlol`.`campeao` (`idCampeao`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `BDlol`.`feiticos`
@@ -271,6 +253,37 @@ CREATE TABLE IF NOT EXISTS `BDlol`.`skins_jogador` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- VIEW
+-- -----------------------------------------------------
+create view vw_partida_completa as select idPartida, duracao, ouro, danoCampeoes, danoRecebido, tropasAbatidas, placarVisao, lado, resultado, nickname, nomeCampeao, nomeSkin
+FROM jogador_partida
+LEFT JOIN skins
+ON idSkin=skins_idSkin
+INNER JOIN jogador
+ON jogador.idJogador=jogador_partida.jogador_id
+INNER JOIN campeao
+ON idCampeao=jogador_partida.campeao_idCampeao
+INNER JOIN partida
+ON idPartida=partida_idPartida;
+
+
+-- -----------------------------------------------------
+-- PROCEDURE
+-- -----------------------------------------------------
+delimiter $$
+create procedure pr_mostra_skins (nick varchar(45))
+begin
+	select idSkin, nomeSkin, imagemSkin, nomeCampeao from jogador
+	join skins_jogador sj on idJogador = sj.jogador_id
+	join skins s on skins_idSkin = idSkin
+	join campeao on s.campeao_id = idCampeao
+	join maestria m on idJogador = m.jogador_id and idCampeao = m.campeao_id
+    where nickname = nick;
+end $$
+delimiter ;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
