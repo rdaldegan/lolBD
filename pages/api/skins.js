@@ -1,10 +1,10 @@
 export async function getData(sql) {
   var mysql = require('mysql');
   var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'bdlol',
+    host: 'remotemysql.com', 
+    user: '0U8BmikqdF',
+    password: 'XpOrEixap9',
+    database: '0U8BmikqdF',
   });
   return new Promise(function(resolve, reject){
     connection.query(sql, 
@@ -23,7 +23,12 @@ export default async function handler(req, res) {
 
   const { query } = req;
 
-  var sql = `call pr_mostra_skins('${query.user}');`;
+  var sql = `select idSkin, nomeSkin, imagemSkin, nomeCampeao from jogador
+	join skins_jogador sj on idJogador = sj.jogador_id
+	join skins s on skins_idSkin = idSkin
+	join campeao on s.campeao_id = idCampeao
+	join maestria m on idJogador = m.jogador_id and idCampeao = m.campeao_id
+    where nickname = ${query.user};`;
 
   var data = [];
 
